@@ -12,9 +12,6 @@
 #include <unistd.h>
 #include <fcntl.h>
 
-/* setfsuid */
-#include <sys/fsuid.h>
-
 char nfs4[] = "nfs4";
 
 static char* get_fs_type() {
@@ -123,26 +120,6 @@ int main() {
 			return 1;
 		}
 	}
-
-    if (setuid(0)) {
-        perror("setuid");
-        return 1;
-    }
-
-    if (setgid(0)) {
-        perror("setgid");
-        return 1;
-    }
-
-    if (setfsuid(0)) {
-        perror("setfsuid");
-        return 1;
-    }
-
-    if (setfsgid(0)) {
-        perror("setfsgid");
-        return 1;
-    }
 
 	/* We don't check for overflow */
 	rc = mount(source, target, fs_type, flags_ul, options);
